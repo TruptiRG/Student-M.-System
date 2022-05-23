@@ -1,5 +1,5 @@
 
-let arr=[];
+// let arr=[];
 function Student(n,c,u,i,b){
     this.name=n;
     this.course=c;
@@ -18,6 +18,7 @@ function t1(e){
     let batch=document.querySelector("#batch").value;
 
     let t2=new Student(name1,course,unit,image,batch);
+    let arr= JSON.parse(localStorage.getItem("Students_data")) || []
     arr.push(t2);
     console.log(arr);
     localStorage.setItem("Students_data",JSON.stringify(arr));
@@ -55,15 +56,30 @@ let sCount=JSON.parse(localStorage.getItem("Students_data"));
 // let sCount2=JSON.parse(localStorage.getItem("Students_data2"))||[]
 
 function display(){
+    let data= JSON.parse(localStorage.getItem("Students_data")) || []
+    let obj={};
+    for(let i=0;i<data.length;i++){
+        if(!obj[data[i].batch]){
+            obj[data[i].batch]=0;
+        }
+    }
+    for(let i=0;i<data.length;i++){
+        obj[data[i].batch]++;
+    }
     // let batch=document.querySelector("#batch").value; 
-    let tr1 = document.createElement("tr");
-    let td1 = document.createElement("td");
-    td1.innerText = "web-17";
-    let td2 = document.createElement("td");
-    td2.innerText = sCount.length;
+    for(var key in obj){
+         k=key;
+         v=obj[key];
+         let tr1 = document.createElement("tr");
+        let td1 = document.createElement("td");
+        td1.innerText = k;
+        let td2 = document.createElement("td");
+        td2.innerText = v;
 
-    tr1.append(td1,td2);
-    document.querySelector("tbody").append(tr1);
+        tr1.append(td1,td2);
+        document.querySelector("tbody").append(tr1);
+    }
+    
 }
 // function display2(){
 //     // let batch=document.querySelector("#batch").value; 

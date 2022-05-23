@@ -43,14 +43,29 @@ function removeItem(elem, index) {
 
 function display(){
     // let batch=document.querySelector("#batch").value; 
-    let tr1 = document.createElement("tr");
-    let td1 = document.createElement("td");
-    td1.innerText = "web-17";
-    let td2 = document.createElement("td");
-    td2.innerText = sCount.length;
+    let data= JSON.parse(localStorage.getItem("Students_data")) || []
+    let obj={};
+    for(let i=0;i<data.length;i++){
+        if(!obj[data[i].batch]){
+            obj[data[i].batch]=0;
+        }
+    }
+    for(let i=0;i<data.length;i++){
+        obj[data[i].batch]++;
+    }
+    // let batch=document.querySelector("#batch").value; 
+    for(var key in obj){
+         k=key;
+         v=obj[key];
+         let tr1 = document.createElement("tr");
+        let td1 = document.createElement("td");
+        td1.innerText = k;
+        let td2 = document.createElement("td");
+        td2.innerText = v;
 
-    tr1.append(td1,td2);
-    document.querySelector("tbody").append(tr1);
+        tr1.append(td1,td2);
+        document.querySelector("tbody").append(tr1);
+    }
 }
 // function display2(){
 //     // let batch=document.querySelector("#batch").value; 
